@@ -1,0 +1,236 @@
+﻿</html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compalible" content="IE-edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>@ViewBag.Title - Beyaz Kitaplık</title>
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="icon.jpg">
+    <link rel="apple-touch-icon" sizes="144x144" href="http://placehold.it/144.png/000/fff">
+    <link rel="apple-touch-icon" sizes="114x114" href="http://placehold.it/114.png/000/fff">
+    <link rel="apple-touch-icon" sizes="72x72" href="http://placehold.it/72.png/000/fff">
+    <link rel="apple-touch-icon" sizes="57x57" href="http://placehold.it/57.png/000/fff">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <script src="~/Scripts/myScripts.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
+
+    <!-- Styles -->
+    <style>
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #f4f4f4;
+            position: relative;
+            min-height: 100vh;
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: linear-gradient(45deg, #00FF00, #00BFFF, #008000, #00FFFF);
+            color: white;
+            padding: 15px 30px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+        }
+
+            .header .nav {
+                display: flex;
+            }
+
+            .header a {
+                color: white;
+                text-decoration: none;
+                margin: 0 15px;
+                font-size: 18px;
+                padding: 14px 20px;
+                position: relative;
+                transition: all 0.3s ease-in-out;
+            }
+
+                .header a::before,
+                .header a::after {
+                    content: '';
+                    position: absolute;
+                    bottom: -2px;
+                    left: 0;
+                    width: 100%;
+                    height: 2px;
+                    background-color: navy;
+                    transform: scaleX(0);
+                    transition: transform 0.3s ease-in-out;
+                }
+
+                .header a::before {
+                    top: -2px;
+                    transform-origin: left;
+                }
+
+                .header a::after {
+                    bottom: -2px;
+                    transform-origin: right;
+                }
+
+                .header a:hover::before,
+                .header a:hover::after {
+                    transform: scaleX(1);
+                }
+
+            .header .logo {
+                display: flex;
+                align-items: center;
+            }
+
+                .header .logo img {
+                    height: 50px;
+                    margin-right: 15px;
+                }
+
+                .header .logo span {
+                    font-size: 24px;
+                    font-weight: bold;
+                    position: relative;
+                }
+
+                    .header .logo span::after {
+                        content: '';
+                        position: absolute;
+                        left: 0;
+                        bottom: 0;
+                        width: 100%;
+                        height: 3px;
+                        background-image: linear-gradient(to right, rgba(255, 255, 255, 0), #ffffff, rgba(255, 255, 255, 0));
+                        transition: width 0.5s;
+                    }
+
+                    .header .logo span:hover::after {
+                        width: 100%;
+                    }
+
+                    .header .logo span:hover::before {
+                        content: '';
+                        position: absolute;
+                        top: -2px;
+                        left: -2px;
+                        right: -2px;
+                        bottom: -2px;
+                        background: linear-gradient(45deg, #fff, #fff, #b3ffff, #66ffff, #33ffff);
+                        z-index: -1;
+                        animation: frostEffect 1.5s linear infinite;
+                        border-radius: 5px;
+                    }
+
+            .header a:hover {
+                color: black;
+            }
+
+        .footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+            width: 100%;
+            position: center;
+            bottom: 0;
+        }
+
+            .footer a {
+                color: white;
+                text-decoration: none;
+            }
+
+                .footer a:hover {
+                    color: #8A2BE2;
+                }
+
+        .thead-custom th {
+            background: linear-gradient(45deg, #00FF00, #00BFFF, #008000, #00FFFF);
+            background-size: 200% 200%;
+            color: #fff;
+            font-weight: bold;
+            text-align: center;
+            font-family: 'Arial', sans-serif;
+            font-size: 1.1rem;
+            padding: 15px;
+            border-top: 2px solid #0072ff;
+            border-bottom: 2px solid #0072ff;
+            border-left: 1px solid #0072ff;
+            border-right: 1px solid #0072ff;
+            animation: gradientShift 5s ease infinite;
+        }
+
+            .thead-custom th:first-child {
+                border-left: 0;
+            }
+
+            .thead-custom th:last-child {
+                border-right: 0;
+            }
+
+        .table tbody td {
+            vertical-align: middle;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .modal-bg {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1040;
+        }
+        
+    </style>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+    <div class="header">
+        <div class="logo">
+            <span class="buzlu">Beyaz Kitaplık</span>
+        </div>
+        <div class="nav">
+            <a href="#">Anasayfa</a>
+            <a href="/Books/BookList">Kitaplar</a>
+            <a href="#">Okunanlar</a>
+            <a href="#">Emanetler</a>
+        </div>
+        
+    </div>
+    <br />
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+
+        <div class="footer">
+            <p>© 2024 Beyaz Kitaplık</p>
+            <p><a href="#">Gizlilik Politikası</a> | <a href="#">Kullanım Koşulları</a> | <a href="#">İletişim</a></p>
+        </div>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+    <script src="~/Scripts/myScripts.js"></script>
+
+</body>
+
+</html>

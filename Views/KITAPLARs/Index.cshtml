@@ -1,0 +1,80 @@
+﻿@model IEnumerable<BeyazKitaplikV1.Models.KITAPLAR>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<div style="background-color: darkmagenta">
+
+
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Kitap_Adi)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.YazarID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.YayinID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Baski_no)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Baski_Tarihi)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Sayfa)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Alinma_Tarihi)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Alindigi_Yer)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Kitap_Adi)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.YazarID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.YayinID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Baski_no)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Baski_Tarihi)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Sayfa)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Alinma_Tarihi)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Alindigi_Yer)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.KitapID }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.KitapID }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.KitapID })
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>

@@ -1,0 +1,355 @@
+﻿/* Set padding to keep content from hitting the edges */
+.body-content {
+    margin-top: 15px;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+tr:nth-child(even) {
+    background-color:cadetblue;
+}
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f1f1f1;
+    min-width: 120px;
+    overflow-y: auto;
+    max-height: 100px;
+    border: 1px solid #ddd;
+    z-index: 1;
+}
+
+    .dropdown-content label {
+        display: block;
+        padding: 5px 10px;
+        cursor: pointer;
+    }
+
+        .dropdown-content label:hover {
+            background-color: #ddd;
+        }
+
+.show {
+    display: block;
+}
+
+.selected-items {
+    width: 100px;
+    margin-top: 5px;
+    padding: 5px;
+    border: 1px solid #ccc;
+}
+
+    .selected-items div {
+        margin-bottom: 5px;
+    }
+@keyframes gradientShift {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+@keyframes frostEffect {
+    0% {
+        background-position: 0% 0%;
+    }
+
+    100% {
+        background-position: 100% 100%;
+    }
+}
+
+    .filter-popup h3 {
+        margin-top: 0;
+    }
+
+    .filter-popup form {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+    }
+
+    .filter-popup label {
+        font-weight: bold;
+    }
+
+    .filter-popup input[type="text"] {
+        width: 100%;
+    }
+
+    .filter-popup button[type="submit"] {
+        grid-column: span 2;
+    }
+.modal-bg {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 9999;
+}
+
+/* Filtreleme popup'ı */
+.filter-popup {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    border: 1px solid #ccc;
+    padding: 20px;
+    z-index: 10000;
+}
+@keyframes frostEffect {
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.05);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+
+.container {
+    max-width:auto;
+    margin: auto;
+}
+
+.table-responsive {
+    margin-top: 20px;
+}
+
+.custom-th {
+    white-space: nowrap;
+}
+
+.btn-lg {
+    font-size: 1.25rem;
+}
+
+.thead-custom th {
+    background: linear-gradient(45deg, #00c6ff, #0072ff); /* Yeşil-Mavi Gradyan */
+    color: #fff;
+    font-weight: bold;
+    text-align: center;
+    font-family: 'Arial', sans-serif;
+    font-size: 1.1rem;
+    padding: 15px;
+    border-top: 2px solid #fff;
+    border-bottom: 2px solid #fff;
+    border-left: 1px solid #fff;
+    border-right: 1px solid #fff;
+}
+
+.table tbody td {
+    vertical-align: middle;
+}
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.modal-bg bookList {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1040;
+}
+.checkbox-container {
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.checkbox-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+    .checkbox-group span {
+        display: flex;
+        align-items: center;
+    }
+
+    .checkbox-group input[type="checkbox"] {
+        margin-right: 5px;
+    }
+.modal-header, .modal-body, .modal-footer {
+    background-color: #343a40; /* Koyu renk */
+    color: #fff; /* Beyaz metin */
+}
+
+.form-label {
+    color: #fff; /* Beyaz metin */
+}
+.form-label-create {
+    font-size: 1.25rem; /* Bu değeri ihtiyaçlarınıza göre ayarlayabilirsiniz */
+}
+
+.mb-3 {
+    margin-bottom: 1rem; /* Alanlar arasında boşluk */
+}
+
+.modal-footer {
+    justify-content: flex-end; /* Sağ tarafa hizalama */
+}
+
+.is-invalid {
+    border-color: #dc3545; /* Kırmızı kenarlık */
+}
+
+.invalid-feedback {
+    color: #dc3545; /* Kırmızı uyarı metni */
+    display: none; /* Başlangıçta gizli */
+}
+
+.is-invalid + .invalid-feedback {
+    display: block; /* Geçersiz alanda uyarı metnini göster */
+}
+
+#altTurError {
+    display: block; /* Checkbox alanındaki uyarı metni */
+    color: #dc3545; /* Kırmızı uyarı metni */
+    margin-top: 0.5rem;
+}
+.form-check-input.is-invalid {
+    border-color: #dc3545; /* Kırmızı kenarlık */
+}
+
+
+.pagination-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.pagination {
+    display: flex;
+    padding-left: 0;
+    list-style: none;
+    border-radius: 0.25rem;
+}
+
+.pagination-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.pagination {
+    display: flex;
+    padding-left: 0;
+    list-style: none;
+    border-radius: 0.25rem;
+}
+
+    .pagination .page-item {
+        margin: 0 2px;
+    }
+
+        .pagination .page-item a {
+            position: relative;
+            display: block;
+            padding: 0.5rem 0.75rem;
+            color: #007bff;
+            background-color: #fff;
+            border: 1px solid #dee2e6;
+            text-decoration: none;
+        }
+
+            .pagination .page-item a:hover {
+                z-index: 2;
+                color: #0056b3;
+                background-color: #e9ecef;
+                border-color: #dee2e6;
+            }
+
+        .pagination .page-item.active a {
+            z-index: 3;
+            color: #fff;
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+
+        .pagination .page-item.disabled a {
+            color: #6c757d;
+            pointer-events: none;
+            cursor: auto;
+            background-color: #fff;
+            border-color: #dee2e6;
+        }
+
+.input-group {
+    background-color: #f8f9fa; /* Hafif gri arka plan */
+}
+
+    .input-group .form-control {
+        background-color: #ffffff; /* Beyaz arka plan */
+        border-right: none; /* Sağ kenarlığı kaldır */
+    }
+
+    .input-group .btn {
+        background-color: #007bff; /* Bootstrap'ın primary rengi */
+        color: white; /* Beyaz yazı rengi */
+    }
+
+        .input-group .btn:hover {
+            background-color: #0056b3; /* Daha koyu mavi hover rengi */
+        }
+
+    .input-group .form-control:focus {
+        box-shadow: none; /* Fokus olduğunda gölgeyi kaldır */
+        border-color: #007bff; /* Fokus olduğunda kenarlık rengi */
+    }
+.table-responsive {
+    margin-bottom: 20px; /* Tablo ile sayfalama arasında boşluk bırakmak için */
+}
+
+.pagination-container {
+    width: 100%; /* Tüm genişliği kaplaması için */
+}
+
+    .pagination-container .pagination {
+        justify-content: center; /* Sayfalama butonlarını ortalamak için */
+    }

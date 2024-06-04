@@ -1,0 +1,415 @@
+﻿@model BeyazKitaplikV1.DTO.KitaplarDTO
+@{
+    ViewBag.Title = "BookInfo";
+}
+
+<div class="container mt-5">
+    <div class="card">
+        <div class="card-header bg-primary text-white">
+            <h2 class="card-title text-center" id="BookNameHead">@Model.KitapAdi</h2>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <p id="bookId"><strong>Kitap ID:</strong> @Model.KitapID</p>
+                    <p id="WriterName"><strong>Yazar Adı:</strong> @Model.YazarAdi</p>
+                    <p id="PublicationName"><strong>Yayın Adı:</strong> @Model.YayinAdi</pid="">
+                    <p id="Page"><strong>Sayfa Sayısı:</strong> @Model.Sayfa</p>
+                    <p id="EditionNo"><strong>Baskı No:</strong> @Model.BaskiNo</p>
+                    <p id="EditionDate"><strong>Baskı Tarihi:</strong> @Model.BaskiTarihiText</p>
+                    <p id="PurchaseDate"><strong>Alınma Tarihi:</strong> @Model.AlinmaTarihiText</p>
+                    <p id="PurcheseLocation"><strong>Alındığı Yer:</strong> @Model.AlindigiYer</p>
+                    <p id="CategoryId"><strong>Tür:</strong> @Model.TurAdi</p>
+                    <p id="SubCategoryIds">
+                    <p>
+                        <strong>Alt Tür:</strong> @foreach (var altTur in Model.AltTurAdis)
+                        {<span style="margin-right: 5px;">@altTur</span>}
+                    </p>
+                    <p><strong>Okundu Mu?</strong> @(Model.OkunduMu ? "Evet" : "Hayır")</p>
+                    <p><strong>Emanette Mi?</strong> @(Model.EmanetteMi ? "Evet" : "Hayır")</p>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer text-center">
+            <a href="/Books/BookList" class="btn btn-secondary me-3"><i class="fas fa-arrow-left me-1"></i>Geri</a>
+            <a href="#" class="btn btn-primary me-3 edit-btn" data-bs-toggle="modal" data-bs-target="#editBookModal" data-id="@Model.KitapID"><i class="fas fa-edit me-1"></i>Düzenle</a>
+            <a href="#" class="btn btn-danger" id="deleteButton" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal" data-id="@Model.KitapID" data-name="@Model.KitapAdi"><i class="fas fa-trash-alt me-1"></i>Sil</a>
+        </div>
+    </div>
+</div>
+
+<!-- Delete Modal -->
+<div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="confirmDeleteModalLabel">Silme Onayı</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Silmek istediğinizden emin misiniz?</p>
+                <p id="bookName"></p>
+
+            </div>
+            <div class="modal-footer">
+                <a id="confirmDeleteButton" href="#" class="btn btn-danger">Tamamla</a>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">İptal</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Edit Modal -->
+<div class="modal fade" id="editBookModal" tabindex="-1" aria-labelledby="editBookModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editBookModalLabel">Kitap Düzenle</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="editBookForm" novalidate>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="kitapAdi" class="form-label">Kitap Adı</label>
+                            <input type="text" class="form-control" id="kitapAdi" name="KitapAdi" required>
+                            <div class="invalid-feedback">Bu alanın doldurulması zorunludur.</div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="yazarAdi" class="form-label">Yazar Adı</label>
+                            <select class="form-control" id="yazarAdi" name="YazarID" required>
+                                <option value="">Lütfen Seçiniz</option>
+                            </select>
+                            <div class="invalid-feedback">Bu alanın doldurulması zorunludur.</div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="yayinAdi" class="form-label">Yayın Adı</label>
+                            <select class="form-control" id="yayinAdi" name="YayinID" required>
+                                <option value="">Lütfen Seçiniz</option>
+                            </select>
+                            <div class="invalid-feedback">Bu alanın doldurulması zorunludur.</div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="sayfa" class="form-label">Sayfa Sayısı</label>
+                            <input type="number" class="form-control" id="sayfa" name="Sayfa" required>
+                            <div class="invalid-feedback">Bu alanın doldurulması zorunludur.</div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="baskiTarihi" class="form-label">Baskı Tarihi</label>
+                            <input type="date" class="form-control" id="baskiTarihi" name="BaskiTarihi" required>
+                            <div class="invalid-feedback">Bu alanın doldurulması zorunludur.</div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="EditionNumberEdit" class="form-label">Baskı No</label>
+                            <input type="text" class="form-control" id="EditionNumberEdit" name="BaskiNo" required>
+                            <div class="invalid-feedback">Bu alanın doldurulması zorunludur.</div>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="alinmaTarihi" class="form-label">Alınma Tarihi</label>
+                            <input type="date" class="form-control" id="alinmaTarihi" name="AlinmaTarihi" required>
+                            <div class="invalid-feedback">Bu alanın doldurulması zorunludur.</div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="alindigiYer" class="form-label">Alındığı Yer</label>
+                            <input type="text" class="form-control" id="alindigiYer" name="AlindigiYer" required>
+                            <div class="invalid-feedback">Bu alanın doldurulması zorunludur.</div>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="turAdi" class="form-label">Tür</label>
+                            <select class="form-control" id="turAdi" name="TurID" required>
+                                <option value="">Lütfen Seçiniz</option>
+                            </select>
+                            <div class="invalid-feedback">Bu alanın doldurulması zorunludur.</div>
+                        </div>
+                        <input type="hidden" id="kitapID" name="KitapID">
+                    </div>
+                    <div class="row">
+
+                        <div class="col-md-12 mb-3" id="AltTurModal">
+                            <label for="altTurAdi" class="form-label">Alt Tür</label>
+                            <div id="altTurContainer" class="row"></div>
+                            <div class="invalid-feedback d-none" id="altTurError">Bu alanın doldurulması zorunludur.</div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">İptal</button>
+                <button type="button" class="btn btn-primary" id="saveChangesButton">Kaydet</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    document.addEventListener('DOMContentLoaded', (event) => {
+        const editButtons = document.querySelectorAll('.edit-btn');
+        const editBookForm = document.getElementById('editBookForm');
+        const confirmDeleteButton = document.getElementById('confirmDeleteButton');
+        const deleteButtons = document.querySelectorAll('#deleteButton');
+        const editBookModal = $('#editBookModal');
+        const saveChangesButton = $('#saveChangesButton');
+        let kitapID = 0;
+        const form = document.getElementById("editBookForm");
+
+
+        editButtons.forEach(button => {
+            button.addEventListener('click', function () {
+                removeInvalidClasses();
+                const kitapID = $(this).data('id');
+
+                // Kitap bilgilerini getir
+                $.ajax({
+                    type: "GET",
+                    url: '/Books/BookInfo',
+                    data: { id: kitapID, isAjax: true },
+                    dataType: "json",
+                    success: function (data) {
+                        $('#kitapAdi').val(data.KitapAdi);
+                        $('#yazarAdi').val(data.YazarID);
+                        $('#yayinAdi').val(data.YayinID);
+                        $('#sayfa').val(data.Sayfa);
+                        $('#baskiTarihi').val(data.BaskiTarihiText);
+                        $('#alinmaTarihi').val(data.AlinmaTarihiText);
+                        $('#alindigiYer').val(data.AlindigiYer);
+                        $('#kitapID').val(data.KitapID);
+                        $('#turAdi').val(data.TurID);
+                        $('#EditionNumberEdit').val(data.BaskiNo);
+
+
+                        loadAltTur(data.TurID, data.AltTurIDs);
+                        // Yazar ve yayın seçeneklerini doldur
+                        loadWriters(data.YazarID);
+                        loadPublications(data.YayinID);
+                        loadCategories(data.TurID);
+
+                    },
+                    error: function (xhr, status, error) {
+                        alert("Bir hata oluştu: " + error);
+                    }
+                });
+
+                editBookModal.modal('show');
+            });
+        });
+
+        
+        function loadWriters(selectedWriterId) {
+            $.ajax({
+                type: "GET",
+                url: '/Books/GetWriters',
+                dataType: "json",
+                success: function (data) {
+                    const writerSelect = $('#yazarAdi');
+                    writerSelect.empty();
+                    writerSelect.append($('<option>', { value: '', text: 'Lütfen Seçiniz' }));
+                    data.forEach(writer => {
+                        writerSelect.append($('<option>', {
+                            value: writer.YazarID,
+                            text: writer.YazarAdi,
+                            selected: writer.YazarID === selectedWriterId
+                        }));
+                    });
+                },
+                error: function (xhr, status, error) {
+                    alert("Yazarlar yüklenirken bir hata oluştu: " + error);
+                }
+            });
+        }
+
+        function loadPublications(selectedPublicationId) {
+            $.ajax({
+                type: "GET",
+                url: '/Books/GetPublications',
+                dataType: "json",
+                success: function (data) {
+                    const publicationSelect = $('#yayinAdi');
+                    publicationSelect.empty();
+                    publicationSelect.append($('<option>', { value: '', text: 'Lütfen Seçiniz' }));
+                    data.forEach(publication => {
+                        publicationSelect.append($('<option>', {
+                            value: publication.YayinID,
+                            text: publication.YayinAdi,
+                            selected: publication.YayinID === selectedPublicationId
+                        }));
+                    });
+                },
+                error: function (xhr, status, error) {
+                    alert("Yayınlar yüklenirken bir hata oluştu: " + error);
+                }
+            });
+        }
+
+        $('#turAdi').change(function () {
+            const selectedTurId = $(this).val();
+            const altTurModal = $('#AltTurModal');
+            if (selectedTurId != "") {
+                loadAltTur(selectedTurId);
+                // d-none sınıfını kaldırarak görünür yap
+                if (altTurModal.hasClass('d-none')) {
+                    altTurModal.removeClass('d-none');
+                }
+            } else {
+                // d-none sınıfını ekleyerek gizle
+                if (!altTurModal.hasClass('d-none')) {
+                    altTurModal.addClass('d-none');
+                }
+            }
+        });
+        function loadCategories(selectedCategoryId) {
+            $.ajax({
+                type: "GET",
+                url: '/Books/GetGenres',
+                dataType: "json",
+                success: function (data) {
+                    const categorySelect = $('#turAdi');
+                    categorySelect.empty();
+                    categorySelect.append($('<option>', { value: '', text: 'Lütfen Seçiniz' }));
+                    data.forEach(category => {
+                        categorySelect.append($('<option>', {
+                            value: category.TurID,
+                            text: category.TurAdi,
+                            selected: category.TurID === selectedCategoryId
+                        }));
+                    });
+                },
+                error: function (xhr, status, error) {
+                    alert("Türler yüklenirken bir hata oluştu: " + error);
+                }
+            });
+        }
+
+        function loadAltTur(categoryId, selectedAltTurIds = []) {
+            $.ajax({
+                type: "GET",
+                url: '/Books/GetSubGenres',
+                data: { id: categoryId },
+                dataType: "json",
+                success: function (data) {
+                    const altTurContainer = $('#altTurContainer');
+                    altTurContainer.empty();
+                    data.forEach((altTur, index) => {
+                        const isChecked = selectedAltTurIds.includes(altTur.AltTurID);
+                        const checkbox = `<div class="col-md-4 mb-3">
+                               <div class="form-check">
+                                   <input class="form-check-input" type="checkbox" value="${altTur.AltTurID}" id="altTur-${altTur.AltTurID}" name="AltTurIDs" ${isChecked ? 'checked' : ''}>
+                                   <label class="form-check-label" for="altTur-${altTur.AltTurID}">
+                                       ${altTur.AltTurAdi}
+                                   </label>
+                               </div>
+                           </div>`;
+                        altTurContainer.append(checkbox);
+                    });
+                },
+                error: function (xhr, status, error) {
+                    alert("Alt türler yüklenirken bir hata oluştu: " + error);
+                }
+            });
+        }
+        saveChangesButton.on('click', function () {
+
+            const formData = $('#editBookForm').serialize();
+            let isValid = form.checkValidity();
+            const altTurContainer = document.getElementById("altTurContainer");
+            const checkboxes = altTurContainer.querySelectorAll("input[type='checkbox']");
+            const altTurError = document.getElementById("altTurError");
+
+            if (!Array.from(checkboxes).some(checkbox => checkbox.checked)) {
+                altTurError.classList.remove("d-none");
+                checkboxes.forEach(checkbox => checkbox.classList.add("is-invalid"));
+                isValid = false;
+            }
+            else {
+                altTurError.classList.add("d-none");
+                checkboxes.forEach(checkbox => checkbox.classList.remove("is-invalid"));
+            }
+
+            if (isValid) {
+                $.ajax({
+                    type: "POST",
+                    url: '/Books/UpdateBook',
+                    data: formData,
+                    success: function (response) {
+                        if (response.success) {
+                            alert(response.message);
+                            // 1 saniye (1000 milisaniye) bekledikten sonra sayfayı yenile
+                            setTimeout(function () {
+                                location.reload();
+                            }, 1000);
+                            location.reload(); // Sayfayı yenile
+                        } else {
+                            alert("Hata: " + response.message);
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        alert("Bir hata oluştu: " + error);
+                    }
+                });
+                form.submit();
+            }
+            else {
+                form.querySelectorAll(":invalid").forEach(function (element) {
+                    element.classList.add("is-invalid");
+                });
+                form.querySelectorAll(":valid").forEach(function (element) {
+                    element.classList.remove("is-invalid");
+                });
+            }
+        });
+        form.addEventListener("input", function (event) {
+            if (event.target.checkValidity()) {
+                event.target.classList.remove("is-invalid");
+            }
+        });
+
+
+        const bookNameElement = document.getElementById('bookName');
+
+        deleteButtons.forEach(button => {
+            button.addEventListener('click', (e) => {
+                kitapID = button.getAttribute('data-id');
+                const bookName = button.getAttribute('data-name');
+                bookNameElement.textContent = `Kitap Adı: ${bookName}`;
+            });
+        });
+
+        confirmDeleteButton.addEventListener('click', (e) => {
+            $.ajax({
+                type: "POST",
+                url: '/Books/DeleteBook',
+                data: JSON.stringify({ id: kitapID }),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+                    if (response.success) {
+                        alert(response.message);
+                        window.location.href = '/Books/BookList';
+                    } else {
+                        alert("Hata: " + response.message);
+                    }
+                },
+                error: function (xhr, status, error) {
+                    alert("Bir hata oluştu: " + error);
+                }
+            });
+        });
+
+        function removeInvalidClasses() {
+            const invalidElements = editBookForm.querySelectorAll('.is-invalid');
+            invalidElements.forEach(element => {
+                element.classList.remove('is-invalid');
+            });
+        }
+    });
+
+
+</script>

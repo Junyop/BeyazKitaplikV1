@@ -1,0 +1,433 @@
+﻿
+@model BeyazKitaplikV1.ViewModels.CreateBooksViewModel
+@{
+    ViewBag.Title = "CreateBook";
+}
+
+<h2>Yeni Kitap Ekle</h2>
+<form action="/Books/CreateBook" method="post" id="createBookForm">
+    @Html.AntiForgeryToken()
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="mb-3">
+                    <label class="form-label-create">Kitap Adi</label>
+                    <div class="col-md-12" id="Bookdiv">
+                        @Html.EditorFor(model => model.Books.KitapAdi, new { htmlAttributes = new { @class = "form-control", id = "BookName", required = "required" } })
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="mb-3">
+                    <label class="form-label-create">Yazar</label>
+                    <div class="col-md-12" id="Writerdiv">
+                        @Html.DropDownListFor(model => model.Writer.YazarID, (SelectList)ViewBag.Writer, "Lütfen Seçiniz", new { @class = "dropdown form-control", id = "yazarlar", @required = "required" })
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="mb-3">
+                    <label class="form-label-create">Yayın</label>
+                    <div class="col-md-12" id="Publicationdiv">
+                        @Html.DropDownListFor(m => m.Publication.YayinID, (SelectList)ViewBag.Publication, "Lütfen Seçiniz", new { @class = "dropdown form-control", id = "yayinlar", @required = "required" })
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="mb-3">
+                    <label class="form-label-create">Sayfa</label>
+                    <div class="col-md-12">
+                        @Html.EditorFor(model => model.Books.Sayfa, new { htmlAttributes = new { @class = "form-control" } })
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="mb-3">
+                    <label class="form-label-create">Baskı No</label>
+                    <div class="col-md-12">
+                        @Html.EditorFor(model => model.Books.BaskiNo, new { htmlAttributes = new { @class = "form-control" } })
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="mb-3">
+                    <label class="form-label-create">Alındığı Yer</label>
+                    <div class="col-md-12">
+                        @Html.EditorFor(model => model.Books.AlindigiYer, new { htmlAttributes = new { @class = "form-control" } })
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="mb-3">
+                    <label class="form-label-create">Baskı Tarihi</label>
+                    <div class="col-md-12" id="PrintingDatediv">
+                        @Html.EditorFor(model => model.Books.BaskiTarihi, new { htmlAttributes = new { @class = "form-control", type = "date", id = "printingDate" } })
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="mb-3">
+                    <label class="form-label-create">Alınma Tarihi</label>
+                    <div class="col-md-12" id="BuyDatediv">
+                        @Html.EditorFor(model => model.Books.AlinmaTarihi, new { htmlAttributes = new { @class = "form-control", type = "date", id = "buyDate" } })
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="mb-3">
+                    <label class="form-label-create">Tür</label>
+                    <div class="col-md-12" id="Typediv">
+                        @Html.DropDownListFor(model => model.Types.TurID, (SelectList)ViewBag.Types, "Lütfen Seçiniz", new { @class = "dropdown form-control", id = "turler" })
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6" id="subType" style="display:none">
+                <label class="form-label col-md-12">Alt Tür</label>
+                <div id="options" class="col-md-12 dropdown" style="display:flex ; align-items:flex-start ; gap:10px; flex-direction:row ; flex-wrap:wrap ;justify-content:space-around">
+                </div>
+            </div>
+            <div class="col-md-1 form-group" id="subType2" style="display:none">
+                <div>
+                    @Html.TextBoxFor(model => model.SubTypesIDs, new { @class = "dropdown form-control", @style = "display:none", id = "doldurulacak" })
+                </div>
+            </div>
+            <div class="col-md-11" id="btns" style="text-align:right; margin-top:10px;">
+                <input onclick="create()" type="submit" value="Ekle" class="btn btn-success" />
+                <input onclick="resetle()" class="btn btn-secondary" type="reset" value="Sıfırla" />
+            </div>
+        </div>
+    </div>
+</form>
+<div id="succes"></div>
+<!-- Yazar Ekle Modal -->
+<div class="modal fade" id="addAuthorModal" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="addAuthorModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <!-- Modalı ekranın ortasına yerleştir -->
+        <div class="modal-content bg-dark text-light">
+            <!-- Modal içeriğinin arka plan rengini koyu yap -->
+            <div class="modal-header">
+                <h5 class="modal-title" id="addAuthorModalLabel">Yeni Yazar Ekle</h5>
+               
+            </div>
+            <div class="modal-body">
+                <!-- Modal Form -->
+                <form id="modalFormAuthor">
+                    <div class="form-group mb-4">
+                        <!-- mb-4 ile alt boşluğu artırır -->
+                        <label for="yazarAdi" class="text-light">Yazar Adı</label> <!-- Label metnini beyaz yap -->
+                        <input type="text" class="form-control" id="yazarAdi" name="yazarAdi" placeholder="Yazar adı girin">
+                    </div>
+                    <div class="mb-4" style="text-align:right">
+                        <button type="submit" class="btn btn-primary">Kaydet</button>
+                    </div>
+                    
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Yayın Ekle Modal -->
+<div class="modal fade" id="addPublicationModal" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="addPublicationModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <!-- Modalı ekranın ortasına yerleştir -->
+        <div class="modal-content bg-dark text-light">
+            <!-- Modal içeriğinin arka plan rengini koyu yap -->
+            <div class="modal-header">
+                <h5 class="modal-title" id="addPublicationModalLabel">Yeni Yayin Ekle</h5>
+
+            </div>
+            <div class="modal-body">
+                <!-- Modal Form -->
+                <form id="modalFormPublication">
+                    <div class="form-group mb-4">
+                        <!-- mb-4 ile alt boşluğu artırır -->
+                        <label for="yayinAdi" class="text-light">Yayin Adı</label> <!-- Label metnini beyaz yap -->
+                        <input type="text" class="form-control" id="yayinAdi" name="yayinAdi" placeholder="Yayin adı girin">
+                    </div>
+                    <div class="mb-4" style="text-align:right">
+                        <button type="submit" class="btn btn-primary">Kaydet</button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+@Html.ActionLink("Kitaplar sayfasına geri dön", "BookList")
+<script>
+
+    $(function () {
+        $("#turler").change(function () {
+
+            document.getElementById('subType').style.display = 'block';
+            var id = $(this).val();
+            $.ajax({
+                url: '/Books/GetSubTypes/' + id,
+                data: { 'Alt_TurID': id },
+                type: "POST",
+                dataType: 'json',
+                success: function (result) {
+                    var alttur = $("#options");
+                    alttur.empty();
+                    var checkboxGroup = $('<div class="checkbox-group"></div>'); // Gruplandırma için yeni bir div oluşturuluyor
+                    var counter = 0; // Her 5 checkboxtan sonra bir gruplandırma yapmak için sayacı tanımlıyoruz
+                    $.each(
+                        result, function (i, item) {
+                            var checkbox = $("<span><input type='checkbox' value='" + item.Alt_TurID + "' id='itemId" + item.Alt_TurID + "'>" + item.Alt_Tur_Adi + "</span>");
+                            checkboxGroup.append(checkbox); // Oluşturulan checkbox div'e ekleniyor
+                            counter++; // Her checkbox eklemesinde sayacı artırıyoruz
+                            if (counter == 5) { // Her 5 checkboxtan sonra gruplandırma yapılacak
+                                alttur.append(checkboxGroup); // Gruplandırılmış checkboxlar ana div'e ekleniyor
+                                checkboxGroup = $('<div class="checkbox-group"></div>'); // Yeni bir gruplandırma için div yeniden oluşturuluyor
+                                counter = 0; // Sayacı sıfırlıyoruz
+                            }
+                        });
+                    if (counter > 0) { // Son gruplandırma için kalan checkboxlar varsa ekleme yapılıyor
+                        alttur.append(checkboxGroup);
+                    }
+                }
+            });
+            document.getElementById("btns").className = 'col-md-5';
+        });
+    });
+    function create() {
+        var flg = validate();
+
+        if (flg == true) {
+            var checkBoxes = document.getElementsByTagName('input');
+            var ids = "";
+            for (i = 0; i < checkBoxes.length; i++) {
+                if (checkBoxes[i].type == "checkbox") {
+
+                    if (checkBoxes[i].checked && checkBoxes[i].value != "undefined")
+                        ids += checkBoxes[i].value + "-";
+                }
+            }
+            $('#doldurulacak').val(ids);
+        }
+    }
+
+    function validate(flg) {
+
+        var bookFlg = document.getElementById('BookName');
+        if (bookFlg.value == '') {
+            flg = false;
+            $('#validateBook').remove();
+            var validateBook = document.getElementById('Bookdiv');
+            $("document").ready(function () {
+                $(validateBook).append("<div class='text-danger field-validation-error' id='validateBook'><small><i> Lütfen kitap adı giriniz.</i></small></div>");
+            });
+        }
+        else {
+            flg = true;
+            $('#validateBook').remove();
+        }
+
+        var writerFlg = document.getElementById('yazarlar');
+        if (writerFlg.value == '') {
+            flg = false;
+            $('#validateWriter').remove();
+            var validateWriter = document.getElementById('Writerdiv');
+            $("document").ready(function () {
+                $(validateWriter).append("<div class='text-danger field-validation-error' id='validateWriter'><small><i>Lütfen yazar seçiniz.</i></small></div>");
+            });
+        }
+        else {
+            flg = true;
+            $('#validateWriter').remove();
+        }
+
+        var publicationFlg = document.getElementById('yayinlar');
+        if (publicationFlg.value == '') {
+            flg = false;
+            $('#validatePublication').remove();
+            var validatePublication = document.getElementById('Publicationdiv');
+            $("document").ready(function () {
+                $(validatePublication).append("<div class='text-danger field-validation-error' id='validatePublication'><small><i>Lütfen yayın seçiniz.</i></small></div>");
+            });
+        }
+        else {
+            flg = true;
+            $('#validatePublication').remove();
+        }
+        var typeFlg = document.getElementById('turler');
+        if (typeFlg.value == '') {
+            flg = false;
+            $('#validateType').remove();
+            var validateType = document.getElementById('Typediv');
+            $("document").ready(function () {
+                $(validateType).append("<div class='text-danger field-validation-error' id='validateType'><small><i>Lütfen tür seçiniz.</i></small></div>");
+            });
+        }
+        else {
+            flg = true;
+            $('#validateType').remove();
+        }
+        return flg;
+    }
+    $(function () {
+        $("#buyDate").change(function () {
+            var getBuyDate = document.getElementById('buyDate');
+            var getPrintingDate = document.getElementById('printingDate');
+            if (getPrintingDate.value != "" && getBuyDate.value < getPrintingDate.value) {
+                getBuyDate.value = '';
+                var validateBuyDate = document.getElementById('BuyDatediv');
+                $("document").ready(function () {
+                    $('.text-danger').remove();
+                    $(validateBuyDate).append("<div class='text-danger field-validation-error'><small><i>Alınma tarihi baskı tarihinden önce olamaz.</i></small></div>");
+                });
+            }
+            else {
+                $('.text-danger').remove();
+            }
+            let now = new Date();
+            var ByDate = new Date(getBuyDate.value);
+            if (ByDate > now) {
+                var validateBuyDate = document.getElementById('BuyDatediv');
+                $("document").ready(function () {
+                    $('.text-danger').remove();
+                    getBuyDate.value = '';
+                    $(validateBuyDate).append("<div class='text-danger field-validation-error'><small><i>Bu günden ileri bir tarih seçilemez.</i></small></div>");
+                });
+            }
+            else {
+                $('.text-danger').remove();
+            }
+        });
+    });
+    $(function () {
+        $("#printingDate").change(function () {
+            var getBuyDate = document.getElementById('buyDate');
+            var getPrintingDate = document.getElementById('printingDate');
+            if (getBuyDate.value != "" && getBuyDate.value < getPrintingDate.value) {
+                getPrintingDate.value = '';
+                var validatePrintingDate = document.getElementById('PrintingDatediv');
+                $("document").ready(function () {
+                    $('.text-danger').remove();
+                    $(validatePrintingDate).append("<div class='text-danger field-validation-error'><small><i>Baskı tarihi alınma tarihinden sonra olamaz.</i></small></div>");
+                });
+            }
+            else {
+                $('.text-danger').remove();
+            }
+            let now = new Date();
+            var PrDate = new Date(getPrintingDate.value);
+            if (PrDate > now) {
+                var validatePrintingDate = document.getElementById('PrintingDatediv');
+                $("document").ready(function () {
+                    $('.text-danger').remove();
+                    getPrintingDate.value = '';
+                    $(validatePrintingDate).append("<div class='text-danger field-validation-error'><small><i>Bu günden ileri bir tarih seçilemez.</i></small></div>");
+                });
+            }
+            else {
+                $('.text-danger').remove();
+            }
+        });
+    });
+    function resetle() {
+        var elel = document.getElementsByTagName('input');
+        for (i = 0; i < elel.length; i++) {
+            if (elel[i].type == "checkbox") {
+                elel[i].checked = "false";
+            }
+            $('#doldurulacak').val("");
+            document.getElementById('subType').style.display = 'none';
+            document.getElementById("btns").className = 'col-md-11';
+            $('.text-danger').remove();
+
+        }
+    }
+
+    $(document).ready(function() {
+    $('#yazarlar').change(function() {
+        var selectedValue = $(this).val();
+        if (selectedValue == "9999") {
+            $('#addAuthorModal').modal('show');
+        }
+    });
+        $(document).ready(function () {
+            $('#yayinlar').change(function () {
+                var selectedValue = $(this).val();
+                if (selectedValue == "9999") {
+                    $('#addPublicationModal').modal('show');
+                }
+            });
+
+    $('#modalForm').submit(function(event) {
+        event.preventDefault();
+        var yazarAdi = $('#yazarAdi').val();
+
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("AddNewAuthor", "Books")',
+            data: { yazarAdi: yazarAdi },
+            success: function(response) {
+                if (response.success) {
+                    alert(response.message);
+                    $('#addAuthorModal').modal('hide');
+                    // Optionally, refresh the page or update the dropdown list
+                    // Dropdown'u güncelle
+                    updateDropdown(response.authorId, response.authorName);
+                } else {
+                    alert("Hata: " + response.message);
+                }
+            },
+            error: function() {
+                alert("Beklenmeyen bir hata oluştu.");
+            }
+        });
+    });
+        });
+        $('#modalFormPublication').submit(function(event) {
+    event.preventDefault();
+    var yayinAdi = $('#yayinAdi').val();
+
+    $.ajax({
+        type: "POST",
+        url: '@Url.Action("AddNewPublicaiton", "Books")',
+        data: { yayinAdi: yayinAdi },
+        success: function(response) {
+            if (response.success) {
+                alert(response.message);
+                $('#addPublicationModal').modal('hide');
+                // Optionally, refresh the page or update the dropdown list
+                // Dropdown'u güncelle
+                updateDropdownPublication(response.publicationId, response.publicationName);
+            } else {
+                alert("Hata: " + response.message);
+            }
+        },
+        error: function() {
+            alert("Beklenmeyen bir hata oluştu.");
+        }
+    });
+});
+});
+    function updateDropdown(id, name) {
+        var dropdown = $('#yazarlar');
+        dropdown.append('<option value="' + id + '">' + name + '</option>');
+    }
+    function updateDropdownPublication(id, name) {
+        var dropdown = $('#yayinlar');
+        dropdown.append('<option value="' + id + '">' + name + '</option>');
+    }
+
+</script>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

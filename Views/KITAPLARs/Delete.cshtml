@@ -1,0 +1,88 @@
+﻿@model BeyazKitaplikV1.Models.KITAPLAR
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>KITAPLAR</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Kitap_Adi)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Kitap_Adi)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.YazarID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.YazarID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.YayinID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.YayinID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Baski_no)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Baski_no)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Baski_Tarihi)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Baski_Tarihi)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Sayfa)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Sayfa)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Alinma_Tarihi)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Alinma_Tarihi)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Alindigi_Yer)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Alindigi_Yer)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

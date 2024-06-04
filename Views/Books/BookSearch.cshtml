@@ -1,0 +1,53 @@
+﻿
+@model IEnumerable<BeyazKitaplikV1.DTO.KitaplarDTO>
+@{
+    ViewBag.Title = "Arama";
+}
+<!-- Table -->
+<table class="table table-striped table-bordered" id="ifFilter">
+    <thead class="thead-custom">
+        <tr id="tabloKitaplar">
+            <th class="custom-th">Kitap Adı</th>
+            <th class="custom-th">Yazar Adı</th>
+            <th class="custom-th">Yayın Adı</th>
+            <th class="custom-th">Sayfa</th>
+            <th class="custom-th">Tür</th>
+            <th class="custom-th">Alt Tür</th>
+            <th class="custom-th">Baskı No</th>
+            <th class="custom-th">Baskı Tarihi</th>
+            <th class="custom-th">Alınma Tarihi</th>
+            <th class="custom-th">Alındığı Yer</th>
+            <th class="custom-th" style="width:125px">Eylemler</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.KitapAdi)</td>
+                <td>@Html.DisplayFor(modelItem => item.YazarAdi)</td>
+                <td>@Html.DisplayFor(modelItem => item.YayinAdi)</td>
+                <td>@Html.DisplayFor(modelItem => item.Sayfa)</td>
+                <td>@Html.DisplayFor(modelItem => item.TurAdi)</td>
+                <td>@Html.DisplayFor(modelItem => item.SubTypes)</td>
+                <td>@Html.DisplayFor(modelItem => item.BaskiNo)</td>
+                <td>@Html.DisplayFor(modelItem => item.BaskiTarihiText)</td>
+                <td>@Html.DisplayFor(modelItem => item.AlinmaTarihiText)</td>
+                <td>@Html.DisplayFor(modelItem => item.AlindigiYer)</td>
+                <td>
+                    <a href="@Url.Action("BookInfo", "Books", new { id = item.KitapID })" class="btn btn-sm btn-info" title="Bilgiler">
+                        <i class="bi bi-info-circle"></i>
+                    </a>
+                    <a class="btn btn-primary btn-sm edit-btn" data-bs-toggle="modal" data-bs-target="#editBookModal" data-id="@item.KitapID" title="Düzenle">
+                        <i class="bi bi-pencil"></i>
+                    </a>
+                    <a class="btn btn-sm btn-danger delete-btn" title="Sil" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal" data-id="@item.KitapID" data-name="@item.KitapAdi">
+                        <i class="bi bi-trash"></i>
+                    </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+

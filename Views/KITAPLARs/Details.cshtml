@@ -1,0 +1,82 @@
+﻿@model BeyazKitaplikV1.Models.KITAPLAR
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>KITAPLAR</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Kitap_Adi)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Kitap_Adi)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.YazarID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.YazarID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.YayinID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.YayinID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Baski_no)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Baski_no)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Baski_Tarihi)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Baski_Tarihi)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Sayfa)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Sayfa)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Alinma_Tarihi)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Alinma_Tarihi)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Alindigi_Yer)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Alindigi_Yer)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.KitapID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

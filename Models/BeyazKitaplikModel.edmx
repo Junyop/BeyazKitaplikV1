@@ -1,0 +1,361 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="BeyazKitaplikModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'BeyazKitaplik.dbo.ALTTURLER' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="ALTTURLER">
+          <Key>
+            <PropertyRef Name="Alt_TurID" />
+          </Key>
+          <Property Name="Alt_TurID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TurID" Type="int" />
+          <Property Name="Alt_Tur_Adi" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'BeyazKitaplik.dbo.EMANETLER' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="EMANETLER">
+          <Key>
+            <PropertyRef Name="EmanetID" />
+          </Key>
+          <Property Name="EmanetID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="KitapID" Type="int" />
+          <Property Name="Kime_Verildi" Type="varchar" MaxLength="100" />
+          <Property Name="Verilme_Tarihi" Type="date" />
+          <Property Name="Geri_Alinma_Tarihi" Type="date" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'BeyazKitaplik.dbo.KITAP_TUR_ILISKISI' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="KITAP_TUR_ILISKISI">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="KitapID" Type="int" />
+          <Property Name="TurID" Type="int" />
+          <Property Name="AltTurID" Type="int" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'BeyazKitaplik.dbo.KITAPLAR' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="KITAPLAR">
+          <Key>
+            <PropertyRef Name="KitapID" />
+          </Key>
+          <Property Name="KitapID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Kitap_Adi" Type="varchar" MaxLength="100" />
+          <Property Name="YazarID" Type="int" />
+          <Property Name="YayinID" Type="int" />
+          <Property Name="Baski_no" Type="int" />
+          <Property Name="Baski_Tarihi" Type="date" />
+          <Property Name="Sayfa" Type="int" />
+          <Property Name="Alinma_Tarihi" Type="date" />
+          <Property Name="Alindigi_Yer" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'BeyazKitaplik.dbo.OKUNAN_KITAPLAR' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="OKUNAN_KITAPLAR">
+          <Key>
+            <PropertyRef Name="OkumaID" />
+          </Key>
+          <Property Name="OkumaID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="KitapID" Type="int" />
+          <Property Name="Degerlendirme_Puani" Type="int" />
+          <Property Name="Yorum" Type="varchar" MaxLength="1000" />
+          <Property Name="Baslama_Tarihi" Type="date" />
+          <Property Name="Bitirme_Tarihi" Type="date" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'BeyazKitaplik.dbo.TURLER' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="TURLER">
+          <Key>
+            <PropertyRef Name="TurID" />
+          </Key>
+          <Property Name="TurID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Tur_Adi" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'BeyazKitaplik.dbo.YAYINLAR' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="YAYINLAR">
+          <Key>
+            <PropertyRef Name="YayinID" />
+          </Key>
+          <Property Name="YayinID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Yayin_Adi" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'BeyazKitaplik.dbo.YAZARLAR' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="YAZARLAR">
+          <Key>
+            <PropertyRef Name="YazarID" />
+          </Key>
+          <Property Name="YazarID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Yazar_Adi" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityContainer Name="BeyazKitaplikModelStoreContainer">
+          <EntitySet Name="ALTTURLER" EntityType="Self.ALTTURLER" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [ALTTURLER].[Alt_TurID] AS [Alt_TurID], 
+    [ALTTURLER].[TurID] AS [TurID], 
+    [ALTTURLER].[Alt_Tur_Adi] AS [Alt_Tur_Adi]
+    FROM [dbo].[ALTTURLER] AS [ALTTURLER]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="EMANETLER" EntityType="Self.EMANETLER" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [EMANETLER].[EmanetID] AS [EmanetID], 
+    [EMANETLER].[KitapID] AS [KitapID], 
+    [EMANETLER].[Kime_Verildi] AS [Kime_Verildi], 
+    [EMANETLER].[Verilme_Tarihi] AS [Verilme_Tarihi], 
+    [EMANETLER].[Geri_Alinma_Tarihi] AS [Geri_Alinma_Tarihi]
+    FROM [dbo].[EMANETLER] AS [EMANETLER]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="KITAP_TUR_ILISKISI" EntityType="Self.KITAP_TUR_ILISKISI" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [KITAP_TUR_ILISKISI].[ID] AS [ID], 
+    [KITAP_TUR_ILISKISI].[KitapID] AS [KitapID], 
+    [KITAP_TUR_ILISKISI].[TurID] AS [TurID], 
+    [KITAP_TUR_ILISKISI].[AltTurID] AS [AltTurID]
+    FROM [dbo].[KITAP_TUR_ILISKISI] AS [KITAP_TUR_ILISKISI]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="KITAPLAR" EntityType="Self.KITAPLAR" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [KITAPLAR].[KitapID] AS [KitapID], 
+    [KITAPLAR].[Kitap_Adi] AS [Kitap_Adi], 
+    [KITAPLAR].[YazarID] AS [YazarID], 
+    [KITAPLAR].[YayinID] AS [YayinID], 
+    [KITAPLAR].[Baski_no] AS [Baski_no], 
+    [KITAPLAR].[Baski_Tarihi] AS [Baski_Tarihi], 
+    [KITAPLAR].[Sayfa] AS [Sayfa], 
+    [KITAPLAR].[Alinma_Tarihi] AS [Alinma_Tarihi], 
+    [KITAPLAR].[Alindigi_Yer] AS [Alindigi_Yer]
+    FROM [dbo].[KITAPLAR] AS [KITAPLAR]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="OKUNAN_KITAPLAR" EntityType="Self.OKUNAN_KITAPLAR" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [OKUNAN_KITAPLAR].[OkumaID] AS [OkumaID], 
+    [OKUNAN_KITAPLAR].[KitapID] AS [KitapID], 
+    [OKUNAN_KITAPLAR].[Degerlendirme_Puani] AS [Degerlendirme_Puani], 
+    [OKUNAN_KITAPLAR].[Yorum] AS [Yorum], 
+    [OKUNAN_KITAPLAR].[Baslama_Tarihi] AS [Baslama_Tarihi], 
+    [OKUNAN_KITAPLAR].[Bitirme_Tarihi] AS [Bitirme_Tarihi]
+    FROM [dbo].[OKUNAN_KITAPLAR] AS [OKUNAN_KITAPLAR]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="TURLER" EntityType="Self.TURLER" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [TURLER].[TurID] AS [TurID], 
+    [TURLER].[Tur_Adi] AS [Tur_Adi]
+    FROM [dbo].[TURLER] AS [TURLER]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="YAYINLAR" EntityType="Self.YAYINLAR" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [YAYINLAR].[YayinID] AS [YayinID], 
+    [YAYINLAR].[Yayin_Adi] AS [Yayin_Adi]
+    FROM [dbo].[YAYINLAR] AS [YAYINLAR]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="YAZARLAR" EntityType="Self.YAZARLAR" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [YAZARLAR].[YazarID] AS [YazarID], 
+    [YAZARLAR].[Yazar_Adi] AS [Yazar_Adi]
+    FROM [dbo].[YAZARLAR] AS [YAZARLAR]</DefiningQuery>
+          </EntitySet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="BeyazKitaplikModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="ALTTURLER">
+          <Key>
+            <PropertyRef Name="Alt_TurID" />
+          </Key>
+          <Property Name="Alt_TurID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TurID" Type="Int32" />
+          <Property Name="Alt_Tur_Adi" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="EMANETLER">
+          <Key>
+            <PropertyRef Name="EmanetID" />
+          </Key>
+          <Property Name="EmanetID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="KitapID" Type="Int32" />
+          <Property Name="Kime_Verildi" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Verilme_Tarihi" Type="DateTime" Precision="0" />
+          <Property Name="Geri_Alinma_Tarihi" Type="DateTime" Precision="0" />
+        </EntityType>
+        <EntityType Name="KITAP_TUR_ILISKISI">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="KitapID" Type="Int32" />
+          <Property Name="TurID" Type="Int32" />
+          <Property Name="AltTurID" Type="Int32" />
+        </EntityType>
+        <EntityType Name="KITAPLAR">
+          <Key>
+            <PropertyRef Name="KitapID" />
+          </Key>
+          <Property Name="KitapID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Kitap_Adi" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="YazarID" Type="Int32" />
+          <Property Name="YayinID" Type="Int32" />
+          <Property Name="Baski_no" Type="Int32" />
+          <Property Name="Baski_Tarihi" Type="DateTime" Precision="0" />
+          <Property Name="Sayfa" Type="Int32" />
+          <Property Name="Alinma_Tarihi" Type="DateTime" Precision="0" />
+          <Property Name="Alindigi_Yer" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="OKUNAN_KITAPLAR">
+          <Key>
+            <PropertyRef Name="OkumaID" />
+          </Key>
+          <Property Name="OkumaID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="KitapID" Type="Int32" />
+          <Property Name="Degerlendirme_Puani" Type="Int32" />
+          <Property Name="Yorum" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="Baslama_Tarihi" Type="DateTime" Precision="0" />
+          <Property Name="Bitirme_Tarihi" Type="DateTime" Precision="0" />
+        </EntityType>
+        <EntityType Name="YAYINLAR">
+          <Key>
+            <PropertyRef Name="YayinID" />
+          </Key>
+          <Property Name="YayinID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Yayin_Adi" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="YAZARLAR">
+          <Key>
+            <PropertyRef Name="YazarID" />
+          </Key>
+          <Property Name="YazarID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Yazar_Adi" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityContainer Name="BeyazKitaplikEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="ALTTURLER" EntityType="Self.ALTTURLER" />
+          <EntitySet Name="EMANETLER" EntityType="Self.EMANETLER" />
+          <EntitySet Name="KITAP_TUR_ILISKISI" EntityType="Self.KITAP_TUR_ILISKISI" />
+          <EntitySet Name="KITAPLAR" EntityType="Self.KITAPLAR" />
+          <EntitySet Name="OKUNAN_KITAPLAR" EntityType="Self.OKUNAN_KITAPLAR" />
+          <EntitySet Name="YAYINLAR" EntityType="Self.YAYINLAR" />
+          <EntitySet Name="YAZARLAR" EntityType="Self.YAZARLAR" />
+          <EntitySet Name="TURLER" EntityType="BeyazKitaplikModel.TURLER" />
+        </EntityContainer>
+        <EntityType Name="TURLER">
+          <Key>
+            <PropertyRef Name="TurID" />
+          </Key>
+          <Property Name="TurID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Tur_Adi" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="BeyazKitaplikModelStoreContainer" CdmEntityContainer="BeyazKitaplikEntities">
+          <EntitySetMapping Name="ALTTURLER">
+            <EntityTypeMapping TypeName="BeyazKitaplikModel.ALTTURLER">
+              <MappingFragment StoreEntitySet="ALTTURLER">
+                <ScalarProperty Name="Alt_TurID" ColumnName="Alt_TurID" />
+                <ScalarProperty Name="TurID" ColumnName="TurID" />
+                <ScalarProperty Name="Alt_Tur_Adi" ColumnName="Alt_Tur_Adi" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EMANETLER">
+            <EntityTypeMapping TypeName="BeyazKitaplikModel.EMANETLER">
+              <MappingFragment StoreEntitySet="EMANETLER">
+                <ScalarProperty Name="EmanetID" ColumnName="EmanetID" />
+                <ScalarProperty Name="KitapID" ColumnName="KitapID" />
+                <ScalarProperty Name="Kime_Verildi" ColumnName="Kime_Verildi" />
+                <ScalarProperty Name="Verilme_Tarihi" ColumnName="Verilme_Tarihi" />
+                <ScalarProperty Name="Geri_Alinma_Tarihi" ColumnName="Geri_Alinma_Tarihi" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="KITAP_TUR_ILISKISI">
+            <EntityTypeMapping TypeName="BeyazKitaplikModel.KITAP_TUR_ILISKISI">
+              <MappingFragment StoreEntitySet="KITAP_TUR_ILISKISI">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="KitapID" ColumnName="KitapID" />
+                <ScalarProperty Name="TurID" ColumnName="TurID" />
+                <ScalarProperty Name="AltTurID" ColumnName="AltTurID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="KITAPLAR">
+            <EntityTypeMapping TypeName="BeyazKitaplikModel.KITAPLAR">
+              <MappingFragment StoreEntitySet="KITAPLAR">
+                <ScalarProperty Name="KitapID" ColumnName="KitapID" />
+                <ScalarProperty Name="Kitap_Adi" ColumnName="Kitap_Adi" />
+                <ScalarProperty Name="YazarID" ColumnName="YazarID" />
+                <ScalarProperty Name="YayinID" ColumnName="YayinID" />
+                <ScalarProperty Name="Baski_no" ColumnName="Baski_no" />
+                <ScalarProperty Name="Baski_Tarihi" ColumnName="Baski_Tarihi" />
+                <ScalarProperty Name="Sayfa" ColumnName="Sayfa" />
+                <ScalarProperty Name="Alinma_Tarihi" ColumnName="Alinma_Tarihi" />
+                <ScalarProperty Name="Alindigi_Yer" ColumnName="Alindigi_Yer" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OKUNAN_KITAPLAR">
+            <EntityTypeMapping TypeName="BeyazKitaplikModel.OKUNAN_KITAPLAR">
+              <MappingFragment StoreEntitySet="OKUNAN_KITAPLAR">
+                <ScalarProperty Name="OkumaID" ColumnName="OkumaID" />
+                <ScalarProperty Name="KitapID" ColumnName="KitapID" />
+                <ScalarProperty Name="Degerlendirme_Puani" ColumnName="Degerlendirme_Puani" />
+                <ScalarProperty Name="Yorum" ColumnName="Yorum" />
+                <ScalarProperty Name="Baslama_Tarihi" ColumnName="Baslama_Tarihi" />
+                <ScalarProperty Name="Bitirme_Tarihi" ColumnName="Bitirme_Tarihi" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="YAYINLAR">
+            <EntityTypeMapping TypeName="BeyazKitaplikModel.YAYINLAR">
+              <MappingFragment StoreEntitySet="YAYINLAR">
+                <ScalarProperty Name="YayinID" ColumnName="YayinID" />
+                <ScalarProperty Name="Yayin_Adi" ColumnName="Yayin_Adi" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="YAZARLAR">
+            <EntityTypeMapping TypeName="BeyazKitaplikModel.YAZARLAR">
+              <MappingFragment StoreEntitySet="YAZARLAR">
+                <ScalarProperty Name="YazarID" ColumnName="YazarID" />
+                <ScalarProperty Name="Yazar_Adi" ColumnName="Yazar_Adi" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TURLER">
+            <EntityTypeMapping TypeName="BeyazKitaplikModel.TURLER">
+              <MappingFragment StoreEntitySet="TURLER">
+                <ScalarProperty Name="Tur_Adi" ColumnName="Tur_Adi" />
+                <ScalarProperty Name="TurID" ColumnName="TurID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
